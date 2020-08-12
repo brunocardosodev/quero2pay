@@ -11,37 +11,43 @@ namespace Quero2pay.Controllers
     {
         private DBContext db = new DBContext();
 
-        // GET: Empresa
         public ActionResult Index()
         {
             return View(db.Empresas.ToList());
         }
 
-        // GET: Empresa/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Empresa empresa = db.Empresas.Find(id);
 
             if (empresa == null)
             {
                 return HttpNotFound();
             }
+
+            var funcionarios = db.Funcionarios.Where(f => f.idEmpresa == id).ToList();
+            var cargo = new Cargo();
+
+            foreach (var item in funcionarios)
+            {
+                cargo = db.Cargos.Where(c => c.idCargo == item.idCargo).SingleOrDefault();
+                item.Cargo = cargo;
+            }
+
+            empresa.Funcionarios = funcionarios;
             return View(empresa);
         }
 
-        // GET: Empresa/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Empresa/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Empresa empresa)
@@ -56,7 +62,6 @@ namespace Quero2pay.Controllers
             return View(empresa);
         }
 
-        // GET: Empresa/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -71,12 +76,9 @@ namespace Quero2pay.Controllers
             return View(empresa);
         }
 
-        // POST: Empresa/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idEmpresa,nmEmpresa,rua,bairro,cidade,estado,numero,complemento,cep,ddd,nuTelefone")] Empresa empresa)
+        public ActionResult Edit(Empresa empresa)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +89,6 @@ namespace Quero2pay.Controllers
             return View(empresa);
         }
 
-        // GET: Empresa/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -102,7 +103,6 @@ namespace Quero2pay.Controllers
             return View(empresa);
         }
 
-        // POST: Empresa/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

@@ -15,7 +15,6 @@ namespace Quero2pay.Controllers
     {
         private DBContext db = new DBContext();
 
-        // GET: Funcionarios
         public ActionResult Index()
         {
             var funcionarios = db.Funcionarios.Include(f => f.Cargo).Include(f => f.Empresa);
@@ -23,22 +22,28 @@ namespace Quero2pay.Controllers
             return View(funcionarios.ToList());
         }
 
-        // GET: Funcionarios/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Funcionario funcionario = db.Funcionarios.Find(id);
+
             if (funcionario == null)
             {
                 return HttpNotFound();
             }
+
+            var cargo = new Cargo();
+            var empresa = db.Empresas.Find(funcionario.idEmpresa);
+            cargo = db.Cargos.Where(c => c.idCargo == funcionario.idCargo).SingleOrDefault();
+            funcionario.Cargo = cargo;
+
             return View(funcionario);
         }
 
-        // GET: Funcionarios/Create
         public ActionResult Create()
         {
             ViewBag.idCargo = new SelectList(db.Cargos, "idCargo", "nmCargo");
@@ -46,9 +51,6 @@ namespace Quero2pay.Controllers
             return View();
         }
 
-        // POST: Funcionarios/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "idFuncionario,nome,idEmpresa,idCargo")] Funcionario funcionario)
@@ -65,7 +67,6 @@ namespace Quero2pay.Controllers
             return View(funcionario);
         }
 
-        // GET: Funcionarios/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,9 +83,6 @@ namespace Quero2pay.Controllers
             return View(funcionario);
         }
 
-        // POST: Funcionarios/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "idFuncionario,nome,idEmpresa,idCargo")] Funcionario funcionario)
@@ -100,7 +98,6 @@ namespace Quero2pay.Controllers
             return View(funcionario);
         }
 
-        // GET: Funcionarios/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -115,7 +112,6 @@ namespace Quero2pay.Controllers
             return View(funcionario);
         }
 
-        // POST: Funcionarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
