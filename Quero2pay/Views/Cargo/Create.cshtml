@@ -1,0 +1,59 @@
+﻿@model Quero2pay.Models.Cargo
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="container-fluid header-page-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Cadastro</h1>
+                <p>Formulário de cadastro de cargos</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mg-botton">
+                <a href='javascript:history.go(-1)' class="btn btn-link btn-tabela"><span class="glyphicon glyphicon-menu-left"></span> Voltar</a>
+            </div>
+            <div class="col-md-12">
+                <form>
+                    <div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-8">
+                            @Html.LabelFor(model => model.nmCargo, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.EditorFor(model => model.nmCargo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.nmCargo, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.salario, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.EditorFor(model => model.salario, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.salario, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Salvar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

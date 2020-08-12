@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Quero2pay.Models.Empresa>
+<div class="container-fluid header-page-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Cadastro</h1>
+                <p>Lista de empresas cadastradas</p>
+            </div>
+        </div>
+    </div>
+</div>   
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <a href='@Url.Action("Create")' class="btn btn-primary pull-right btn-tabela"><span class="glyphicon glyphicon-plus"></span> Adicionar Empresa</a>
+        </div>
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.nmEmpresa)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.cidade) /
+                        @Html.DisplayNameFor(model => model.estado)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ddd) /
+                        @Html.DisplayNameFor(model => model.nuTelefone)
+                    </th>
+                    <th class="col-md-3">
+                        <strong>Editar / Remover</strong>
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("Details", new { id=item.idEmpresa})">@Html.DisplayFor(modelItem => item.nmEmpresa)</a>
+                        </td>
+                        <td>
+                            <span>@Html.DisplayFor(modelItem => item.cidade)</span>
+                            <span> - @Html.DisplayFor(modelItem => item.estado)</span>
+                        </td>
+                        <td>
+                            <span>(@Html.DisplayFor(modelItem => item.ddd))</span>
+                            <span>@Html.DisplayFor(modelItem => item.nuTelefone)</span>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-link">
+                                <span class="glyphicon glyphicon-edit"></span>
+                                @Html.ActionLink("Editar", "Edit", new { id = item.idEmpresa })
+                            </button>
+
+                            <button type="button" class="btn btn-link">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                @Html.ActionLink("Remover", "Delete", new { id = item.idEmpresa })
+                            </button>    
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+

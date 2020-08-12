@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Quero2pay.Models.Funcionario>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <a href='@Url.Action("Create", "Funcionarios")' class="btn btn-primary pull-right btn-tabela"><span class="glyphicon glyphicon-plus"></span> Adicionar funcionário</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.nome) 
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cargo.nmCargo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cargo.salario)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Empresa.nmEmpresa)
+                    </th>
+
+                    <th>
+                        Editar / Remover
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("Details","Funcionarios", new { id=item.idFuncionario})">@Html.DisplayFor(modelItem => item.nome)</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cargo.nmCargo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cargo.salario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Empresa.nmEmpresa)
+                        </td>
+
+                        <td>
+                            <button type="button" class="btn btn-link">
+                                <span class="glyphicon glyphicon-edit"></span>
+                                @Html.ActionLink("Editar", "Edit", "Funcionarios", new { id = item.idFuncionario }, null)
+                            </button>
+
+                            <button type="button" class="btn btn-link">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                @Html.ActionLink("Excluir", "Delete", "Funcionarios", new { id = item.idFuncionario }, null)
+                            </button>    
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1022
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quero2pay", "Quero2pay\Quero2pay.csproj", "{E5CD20D5-D365-4C95-AE68-C08024A1189A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E5CD20D5-D365-4C95-AE68-C08024A1189A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5CD20D5-D365-4C95-AE68-C08024A1189A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5CD20D5-D365-4C95-AE68-C08024A1189A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5CD20D5-D365-4C95-AE68-C08024A1189A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CB252722-FCC0-4D3F-937A-0F9407ABA6F3}
+	EndGlobalSection
+EndGlobal

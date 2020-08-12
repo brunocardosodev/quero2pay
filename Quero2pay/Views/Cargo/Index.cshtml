@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Quero2pay.Models.Cargo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container-fluid header-page-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Cadastro</h1>
+                <p>Lista de cargos cadastradas</p>
+            </div>
+        </div>
+    </div>
+</div>  
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <a href='@Url.Action("Create")' class="btn btn-primary pull-right btn-tabela"><span class="glyphicon glyphicon-plus"></span> Adicionar cargo</a>
+            <table class="table table-bordered">
+                <tr>
+                    <th class="col-md-5">
+                        @Html.DisplayNameFor(model => model.nmCargo)
+                    </th>
+                    <th class="col-md-4">
+                        @Html.DisplayNameFor(model => model.salario)
+                    </th>
+                    <th class="col-md-3">Editar / Remover</th>
+                </tr>
+
+                @foreach (var item in Model) {
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("Details", new { id=item.idCargo})">@Html.DisplayFor(modelItem => item.nmCargo)</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.salario)
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-link">
+                                <span class="glyphicon glyphicon-edit"></span>
+                                @Html.ActionLink("Editar", "Edit", new { id=item.idCargo })
+                            </button>
+                            <button type="button" class="btn btn-link">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                @Html.ActionLink("Remover", "Delete", new { id=item.idCargo })
+                            </button>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
