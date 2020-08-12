@@ -54,6 +54,8 @@ namespace Quero2pay.Controllers
         {
             if (ModelState.IsValid)
             {
+                empresa.cep = empresa.cep.Trim('-');
+                empresa.ddd = empresa.ddd.Trim('(').Trim(')');
                 db.Empresas.Add(empresa);
                 db.SaveChanges();
                 return RedirectToAction("Index");

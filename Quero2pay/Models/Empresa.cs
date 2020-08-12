@@ -47,7 +47,7 @@ namespace Quero2pay.Models
         public string cep { get; set; }
 
         [Required]
-        [StringLength(3)]
+        [StringLength(5)]
         [DisplayName("DDD")]
         public string ddd { get; set; }
 
