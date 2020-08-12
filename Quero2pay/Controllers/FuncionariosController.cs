@@ -50,7 +50,7 @@ namespace Quero2pay.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idFuncionario,nome,idEmpresa,idCargo")] Funcionario funcionario)
+        public ActionResult Create(Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Quero2pay.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idFuncionario,nome,idEmpresa,idCargo")] Funcionario funcionario)
+        public ActionResult Edit(Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
@@ -102,10 +102,18 @@ namespace Quero2pay.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Funcionario funcionario = db.Funcionarios.Find(id);
+
+
             if (funcionario == null)
             {
                 return HttpNotFound();
             }
+
+            var cargo = new Cargo();
+            var empresa = db.Empresas.Find(funcionario.idEmpresa);
+            cargo = db.Cargos.Where(c => c.idCargo == funcionario.idCargo).SingleOrDefault();
+            funcionario.Cargo = cargo;
+
             return View(funcionario);
         }
 
